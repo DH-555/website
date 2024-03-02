@@ -4,18 +4,37 @@
     import EventCard from '$routes/community/EventCard.svelte';
     import ShinesSvg from './(assets)/shines.svg';
     import DayCard, { type DayType } from './(components)/DayCard.svelte';
-
     import { events } from '$routes/community/+page.svelte';
     import { Animations } from './(animations)';
-    import Ticket from './(components)/Ticket.svelte';
-    import { getMockContributions } from './helpers';
-    import { randomPick } from '$lib/utils/random';
-    import { tribes } from './tickets/customize/form.svelte';
-    import type { TicketVariant } from './tickets/constants';
     import CountdownCard from './(components)/CountdownCard.svelte';
     import { buildOpenGraphImage } from '$lib/utils/metadata';
+    import thumbnail from './(assets)/thumbnail-1.png';
+    import Day from './(days)/Day.svelte';
+    import Video from './(components)/Video.svelte';
+    import { fade } from 'svelte/transition';
+    import Day1 from './(days)/Day1.svelte';
+    import Day2 from './(days)/Day2.svelte';
+    import Day3 from './(days)/Day3.svelte';
+    import Day4 from './(days)/Day4.svelte';
+    import Day5 from './(days)/Day5.svelte';
+    import ConsoleImage from './(assets)/console.png';
+    import SwagsImage from './(assets)/swag.png';
+    import Ticket0 from './(assets)/mock/ticket-0.png';
+    import Ticket1 from './(assets)/mock/ticket-1.png';
+    import Ticket2 from './(assets)/mock/ticket-2.png';
+    import Ticket3 from './(assets)/mock/ticket-3.png';
+    import Ticket4 from './(assets)/mock/ticket-4.png';
+    import Ticket5 from './(assets)/mock/ticket-5.png';
+    import Ticket6 from './(assets)/mock/ticket-6.png';
+    import Ticket7 from './(assets)/mock/ticket-7.png';
+    import Ticket8 from './(assets)/mock/ticket-8.png';
+    import Ticket9 from './(assets)/mock/ticket-9.png';
+    import Ticket10 from './(assets)/mock/ticket-10.png';
+    import Ticket11 from './(assets)/mock/ticket-11.png';
+    import Ticket12 from './(assets)/mock/ticket-12.png';
 
-    const base = new Date('2024-02-26T15:00:00.000Z');
+    const base = new Date('2024-02-26T14:00:00.000Z');
+    const kickoff = new Date('2024-02-21T15:00:00.000Z');
 
     function addDays(date: Date, days: number): Date {
         return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
@@ -31,26 +50,37 @@
 
     $: days = [
         {
-            title: 'XXX',
-            release: base
+            title: 'Messaging',
+            release: base,
+            animation: Animations.Messaging
         },
         {
-            title: 'XXX',
-            release: addDays(base, 1)
+            title: 'SSR',
+            release: addDays(base, 1),
+            animation: Animations.SSR
         },
         {
-            title: 'XXX',
-            release: addDays(base, 2)
+            title: 'Enum and 2FA',
+            release: addDays(base, 2),
+            animation: Animations.Enum
         },
         {
-            title: 'XXX',
-            release: addDays(base, 3)
+            title: 'Operators',
+            release: addDays(base, 3),
+            animation: Animations.Operators
         },
         {
-            title: 'XXX',
-            release: addDays(base, 4)
+            title: 'New runtimes',
+            release: addDays(base, 4),
+            animation: Animations.Integrations
         }
     ] as DayType[];
+
+    function scrollIntoView(query: string) {
+        document.querySelector(query)?.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
 
     function shuffle<T>(array: T[]): T[] {
         let currentIndex = array.length,
@@ -66,41 +96,19 @@
     }
 
     const users = shuffle([
-        { name: 'Eldad Fux', user: 'eldadfux' },
-        { name: 'Thomas', user: 'tglide' },
-        { name: "Walter O'Brien", user: 'walterob' },
-        { name: 'Sara Kaandorp', user: 'sarak' },
-        { name: 'Carla Alexander', user: 'carla' },
-        { name: 'Chen Parnasa', user: 'chenp' },
-        { name: 'Caio Arias', user: 'caioarias' },
-        { name: 'Bradley Schofield', user: '.ionic' },
-        { name: 'Dylan Graham', user: 'dylan' },
-        { name: 'Emma Carpagnano', user: 'emmacarpagnano' },
-        { name: 'Torsten Dittmann', user: 'torstendittmann' },
-        { name: 'Arman Nik', user: 'armanNik' },
-        { name: 'Christy Jacob', user: 'christyjacob4' },
-        { name: 'Damodar Lohani', user: 'lohanidamodar' },
-        { name: 'Jake Barnby', user: 'abnegate' },
-        { name: 'Aditya Oberai', user: 'adityaoberai' },
-        { name: 'Wess Cope', user: 'wess' },
-        { name: 'Matej Bačo', user: 'meldiron' },
-        { name: 'Khushboo Verma', user: 'vermakhushboo' },
-        { name: 'May Ender', user: 'mayender' },
-        { name: 'Elad Shechter', user: 'elad2412' },
-        { name: 'Vincent Ge', user: 'wenYuGe1' },
-        { name: 'Chen Parnasa', user: 'chenparnasa' },
-        { name: 'Tessa Mero', user: 'tessamero' },
-        { name: 'Shimon Newman', user: 'shimonewman' },
-        { name: 'Shmuel Fogel', user: 'fogelito' },
-        { name: 'Steven Nguyen', user: 'stnguyen90' },
-        { name: 'Jade Baudchon', user: 'dajebp' },
-        { name: 'Holly Barclay', user: 'holly' },
-        { name: 'Laura Du Ry', user: 'lauraDuRy' },
-        { name: 'Luke Silver', user: 'loks0n' },
-        { name: 'Sümeyra Bulut', user: 'sumeyra' },
-        { name: 'Dennis Ivy', user: 'divanov11' },
-        { name: 'Andrea Fernández Camps', user: 'andrea' },
-        { name: 'Evan LeAir', user: 'evdog4life' }
+        Ticket0,
+        Ticket1,
+        Ticket2,
+        Ticket3,
+        Ticket4,
+        Ticket5,
+        Ticket6,
+        Ticket7,
+        Ticket8,
+        Ticket9,
+        Ticket10,
+        Ticket11,
+        Ticket12
     ]);
 
     let userIndex = 0;
@@ -114,16 +122,7 @@
 
         userIndex++;
 
-        const tribe = randomPick(tribes);
-
-        return {
-            name: user.name,
-            gh_user: user.user,
-            tribe,
-            variant: randomPick(['default', 'rainbow', 'pink']) as TicketVariant,
-            id: Math.floor(Math.random() * 100000),
-            contributions: getMockContributions()
-        };
+        return user;
     };
 
     const title = 'Init - Appwrite';
@@ -157,38 +156,65 @@
         <p class="aw-description">The start of something new.</p>
         <div class="buttons">
             <a href="/init/tickets" class="aw-button">Claim your ticket</a>
-            <!-- <button class="aw-button is-secondary">
+            <button on:click={() => scrollIntoView('#kickoff')} class="aw-button is-secondary">
                 <div class="aw-icon-play" />
                 <span class="text">Watch the video</span>
-            </button> -->
+            </button>
         </div>
 
         <img class="shines" src={ShinesSvg} alt="" />
     </div>
-
     <div class="aw-container">
         <div class="day-cards">
             {#each days as day, i (day.release.toISOString())}
-                <DayCard {day} number={i} />
+                <DayCard {day} number={i}>
+                    {#if day.animation}
+                        <svelte:component this={day.animation} />
+                    {/if}
+                </DayCard>
             {/each}
         </div>
         <hr />
-
         <div class="days">
-            <h2 class="aw-eyebrow aw-u-color-text-primary">
-                <div class="aw-dot" />
-            </h2>
-
-            <CountdownCard date={new Date('2024-02-21T15:00:00.000Z')} />
-            {#each days as day, i}
-                <h2 class="aw-eyebrow aw-u-color-text-primary">
-                    <div class="aw-dot" />
-                    DAY {i} - {toReleaseDate(day.release)}<span class="aw-u-color-text-accent"
-                        >_</span
+            <Day release={kickoff}>
+                <div
+                    class="aw-card is-normal has-border-gradient kickoff"
+                    transition:fade={{ delay: 0, duration: 600 }}
+                >
+                    <h3
+                        class="aw-title aw-u-color-text-primary"
+                        id="kickoff"
+                        style:scroll-margin-top="5rem"
                     >
-                </h2>
-
-                <CountdownCard date={day.release} />
+                        Init kickoff<span class="aw-u-color-text-accent">_</span>
+                    </h3>
+                    <Video
+                        --p-aspect-ratio="16/9"
+                        {thumbnail}
+                        src="https://www.youtube-nocookie.com/embed/5NtrYks2dqE?si=0vjkBCZYg8yf2GUW&controls=0"
+                    />
+                </div>
+            </Day>
+            {#each days as day, i}
+                {@const date = `DAY ${i} - ${toReleaseDate(day.release)}`}
+                {#if i === 0}
+                    <Day1 {date} release={day.release} />
+                {:else if i === 1}
+                    <Day2 {date} release={day.release} />
+                {:else if i === 2}
+                    <Day3 {date} release={day.release} />
+                {:else if i === 3}
+                    <Day4 {date} release={day.release} />
+                {:else if i === 4}
+                    <Day5 {date} release={day.release} />
+                {:else}
+                    <h2 class="aw-eyebrow aw-u-color-text-primary">
+                        <div class="aw-dot" />
+                        {date}
+                        <span class="aw-u-color-text-accent">_</span>
+                    </h2>
+                    <CountdownCard date={day.release} />
+                {/if}
             {/each}
         </div>
     </div>
@@ -230,20 +256,32 @@
             </div>
 
             <div class="aw-card is-normal has-border-gradient">
-                <enhanced:img class="swag" src="./(assets)/swag.png" alt="" />
+                <img class="swag" src={SwagsImage} alt="" />
             </div>
         </div>
 
-        <div class="tickets">
+        <div class="tickets aw-u-hide-mobile">
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
             {#each { length: 10 } as _}
-                <Ticket {...getRandomTicket()} disableEffects --base-width="14rem" />
+                <img
+                    src={getRandomTicket()}
+                    style:width="14rem"
+                    style:object-fit="cover"
+                    style:object-position="top"
+                    alt="Appwrite Init Ticket"
+                />
             {/each}
         </div>
         <div class="tickets">
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
             {#each { length: 9 } as _}
-                <Ticket {...getRandomTicket()} disableEffects --base-width="14rem" />
+                <img
+                    src={getRandomTicket()}
+                    style:width="14rem"
+                    style:object-fit="cover"
+                    style:object-position="top"
+                    alt="Appwrite Init Ticket"
+                />
             {/each}
         </div>
     </div>
@@ -260,7 +298,7 @@
                 <a href="https://cloud.appwrite.io" class="aw-button">Get started</a>
             </div>
 
-            <enhanced:img class="console" src="./(assets)/console.png" alt="" />
+            <img class="console" src={ConsoleImage} alt="" />
         </div>
     </div>
 
@@ -405,7 +443,7 @@
             #232325;
         padding: 0.5rem;
 
-        height: 23.25rem;
+        height: 25rem;
 
         h3 {
             padding-block-start: 1.5rem;
@@ -424,7 +462,7 @@
     }
 
     .events {
-        margin-block-start: 10rem;
+        margin-block-start: 5rem;
         padding-block: 5rem;
 
         border-block: 1px solid hsl(var(--aw-color-offset));
