@@ -4,7 +4,6 @@ title: Mailgun
 description: Send emails to your Appwrite users using Mailgun and Appwrite Messaging.
 back: /docs/
 ---
-
 Mailgun lets you send customized email messages to your users.
 These emails can be sent immediately or scheduled.
 You can send emails for purposes like reminders, promotions, announcements, and even custom authentication flows.
@@ -86,7 +85,7 @@ Verify that you can receive the message in your inbox. If not, check for logs in
 {% tabsitem #server-sdk title="Server SDK" %}
 To send a message programmatically, use an [Appwrite Server SDK](/docs/sdks#server).
 {% multicode %}
-```js
+```server-nodejs
 const sdk = require('node-appwrite');
 
 // Init SDK
@@ -100,13 +99,7 @@ client
     .setKey('<API_KEY>') // Your secret API key
 ;
 
-const promise = messaging.createEmail('<MESSAGE_ID>', '<SUBJECT>', '<CONTENT>');
-
-promise.then(function (response) {
-    console.log(response);
-}, function (error) {
-    console.log(error);
-});
+const message = await messaging.createEmail('<MESSAGE_ID>', '<SUBJECT>', '<CONTENT>');
 ```
 ```deno
 import * as sdk from "https://deno.land/x/appwrite/mod.ts";
@@ -122,13 +115,7 @@ client
     .setKey('<API_KEY>') // Your secret API key
 ;
 
-let promise = messaging.createEmail('<MESSAGE_ID>', '<SUBJECT>', '<CONTENT>');
-
-promise.then(function (response) {
-    console.log(response);
-}, function (error) {
-    console.log(error);
-});
+const message - await messaging.createEmail('<MESSAGE_ID>', '<SUBJECT>', '<CONTENT>');
 ```
 ```php
 <?php
@@ -201,6 +188,8 @@ Message result = await messaging.CreateEmail(
 ```
 ```dart
 import 'package:dart_appwrite/dart_appwrite.dart';
+import 'package:dart_appwrite/enums.dart';
+import 'package:dart_appwrite/models.dart';
 
 void main() { // Init SDK
   Client client = Client();
@@ -305,7 +294,7 @@ In the settings, you can update a provider's configuration or delete the provide
 {% tabsitem #server-sdk title="Server SDK" %}
 To update or delete providers programmatically, use an [Appwrite Server SDK](/docs/sdks#server).
 {% multicode %}
-```js
+```server-nodejs
 const sdk = require('node-appwrite');
 
 // Init SDK
@@ -489,6 +478,8 @@ Provider result = await messaging.UpdateSendgridProvider(
 ```
 ```dart
 import 'package:dart_appwrite/dart_appwrite.dart';
+import 'package:dart_appwrite/enums.dart';
+import 'package:dart_appwrite/models.dart';
 
 void main() { // Init SDK
   Client client = Client();

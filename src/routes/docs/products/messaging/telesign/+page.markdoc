@@ -4,7 +4,6 @@ title: Telesign
 description: Send SMS messages to your Appwrite users using Telesign and Appwrite Messaging.
 back: /docs/
 ---
-
 Telesign lets you send customized SMS messages to your users.
 These SMS messages can be sent immediately or scheduled.
 You can send SMS messages for purposes like reminders, promotions, announcements, and even custom authentication flows.
@@ -66,7 +65,7 @@ Verify that you can receive the message in your inbox. If not, check for logs in
 {% tabsitem #server-sdk title="Server SDK" %}
 To send a message programmatically, use an [Appwrite Server SDK](/docs/sdks#server).
 {% multicode %}
-```js
+```server-nodejs
 const sdk = require('node-appwrite');
 
 // Init SDK
@@ -80,21 +79,15 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = messaging.createSMS(
+const messaging = await messaging.createSms(
         '[MESSAGE_ID]',                          // messageId
         '[CONTENT]',                             // content
         [],                                      // topics (optional)
         [],                                      // users (optional)
         [],                                      // targets (optional)
-        'draft',                                 // status (optional)
+        true,                                    // draft (optional)
         ''                                       // scheduledAt (optional)
     );
-
-promise.then(function (response) {
-    console.log(response);
-}, function (error) {
-    console.log(error);
-});
 ```
 ```deno
 import * as sdk from "https://deno.land/x/appwrite/mod.ts";
@@ -110,21 +103,15 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = messaging.createSMS(
+const messaging = await messaging.createSms(
         '[MESSAGE_ID]',                          // messageId
         '[CONTENT]',                             // content
         [],                                      // topics (optional)
         [],                                      // users (optional)
         [],                                      // targets (optional)
-        'draft',                                 // status (optional)
+        true,                                    // draft (optional)
         ''                                       // scheduledAt (optional)
     );
-
-promise.then(function (response) {
-    console.log(response);
-}, function (error) {
-    console.log(error);
-});
 ```
 ```php
 <?php
@@ -142,13 +129,13 @@ $client
 
 $messaging = new Messaging($client);
 
-$result = $messaging->createSMS(
+$result = $messaging->createSms(
     messageId: '[MESSAGE_ID]',
     content: '[CONTENT]',
     topics: [],                                   // optional
     users: [],                                    // optional
     targets: [],                                  // optional
-    status: 'draft',                              // optional
+    draft: true,                                  // optional
     scheduledAt: ''                               // optional
 );
 ```
@@ -172,7 +159,7 @@ result = messaging.create_sms(
     topics = [],                                # optional
     users = [],                                 # optional
     targets = [],                               # optional
-    status = 'draft',                           # optional
+    draft = True,                               # optional
     scheduled_at = ''                           # optional
 )
 ```
@@ -194,7 +181,7 @@ response = messaging.create_sms(
     topics: [],                                   # optional
     users: [],                                    # optional
     targets: [],                                  # optional
-    status: 'draft',                              # optional
+    draft: true,                                  # optional
     scheduled_at: ''                              # optional
 )
 
@@ -214,15 +201,17 @@ var messaging = new Messaging(client);
 
 Message result = await messaging.CreateSMS(
     messageId: "[MESSAGE_ID]",
-    content: "[CONTENT]"
-    topics: new List<string> {}                   // optional
-    users: new List<string> {}                    // optional
-    targets: new List<string> {}                  // optional
-    status: "draft"                               // optional
+    content: "[CONTENT]"    
+    topics: new List<string> {}                   // optional    
+    users: new List<string> {}                    // optional    
+    targets: new List<string> {}                  // optional    
+    draft: true                                   // optional    
     scheduledAt: "");                             // optional
 ```
 ```dart
 import 'package:dart_appwrite/dart_appwrite.dart';
+import 'package:dart_appwrite/enums.dart';
+import 'package:dart_appwrite/models.dart';
 
 void main() {                                    // Init SDK
   Client client = Client();
@@ -234,13 +223,13 @@ void main() {                                    // Init SDK
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
   ;
 
-  Future result = messaging.createSMS(
+  Future result = messaging.createSms(
     messageId: '[MESSAGE_ID]',
     content: '[CONTENT]',
     topics: [],                                  // optional
     users: [],                                   // optional
     targets: [],                                 // optional
-    status: 'draft',                             // optional
+    draft: true,                                 // optional
     scheduledAt: '',                             // optional
   );
 
@@ -264,13 +253,13 @@ Client client = new Client()
 
 Messaging messaging = new Messaging(client);
 
-messaging.createSMS(
+messaging.createSms(
     "[MESSAGE_ID]",                               // messageId
     "[CONTENT]",                                  // content
     listOf(),                                     // topics (optional)
     listOf(),                                     // users (optional)
     listOf(),                                     // targets (optional)
-    "draft",                                      // status (optional)
+    true,                                         // draft (optional)
     ""                                            // scheduledAt (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
@@ -294,13 +283,13 @@ Client client = new Client()
 
 Messaging messaging = new Messaging(client);
 
-messaging.createSMS(
+messaging.createSms(
     "[MESSAGE_ID]",                               // messageId
     "[CONTENT]",                                  // content
     listOf(),                                     // topics (optional)
     listOf(),                                     // users (optional)
     listOf(),                                     // targets (optional)
-    "draft",                                      // status (optional)
+    true,                                         // draft (optional)
     ""                                            // scheduledAt (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
@@ -322,13 +311,13 @@ let client = Client()
 
 let messaging = Messaging(client)
 
-let message = try await messaging.createSMS(
+let message = try await messaging.createSms(
   messageId: "[MESSAGE_ID]",
   content: "[CONTENT]",
   topics: [],                                    // optional
   users: [],                                     // optional
   targets: [],                                   // optional
-  status: "draft",                               // optional
+  draft: true,                                   // optional
   scheduledAt: ""                                // optional
 )
 ```
@@ -351,7 +340,7 @@ In the settings, you can update a provider's configuration or delete the provide
 {% tabsitem #server-sdk title="Server SDK" %}
 To update or delete providers programmatically, use an [Appwrite Server SDK](/docs/sdks#server).
 {% multicode %}
-```js
+```server-nodejs
 const sdk = require('node-appwrite');
 
 // Init SDK
@@ -365,7 +354,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = messaging.updateTelesignProvider(
+const provider = await messaging.updateTelesignProvider(
         '[PROVIDER_ID]',                         // providerId
         '[NAME]',                                // name (optional)
         false,                                   // enabled (optional)
@@ -373,12 +362,6 @@ const promise = messaging.updateTelesignProvider(
         '[PASSWORD]',                            // password (optional)
         '[FROM]'                                 // from (optional)
     );
-
-promise.then(function (response) {
-    console.log(response);
-}, function (error) {
-    console.log(error);
-});
 ```
 ```deno
 import * as sdk from "https://deno.land/x/appwrite/mod.ts";
@@ -394,7 +377,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = messaging.updateTelesignProvider(
+const provider = await messaging.updateTelesignProvider(
         '[PROVIDER_ID]',                         // providerId
         '[NAME]',                                // name (optional)
         false,                                   // enabled (optional)
@@ -402,12 +385,6 @@ const promise = messaging.updateTelesignProvider(
         '[PASSWORD]',                            // password (optional)
         '[FROM]'                                 // from (optional)
     );
-
-promise.then(function (response) {
-    console.log(response);
-}, function (error) {
-    console.log(error);
-});
 ```
 ```php
 <?php
@@ -502,6 +479,8 @@ Provider result = await messaging.UpdateTelesignProvider(
 ```
 ```dart
 import 'package:dart_appwrite/dart_appwrite.dart';
+import 'package:dart_appwrite/enums.dart';
+import 'package:dart_appwrite/models.dart';
 
 void main() {                                    // Init SDK
   Client client = Client();

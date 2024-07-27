@@ -51,7 +51,7 @@
 					href: '/docs/products/messaging/mailgun'
 				},
 				{
-					label: 'Email with Sendgrid',
+					label: 'Email with SendGrid',
 					href: '/docs/products/messaging/sendgrid'
 				},
 				{
@@ -71,7 +71,7 @@
 					href: '/docs/products/messaging/telesign'
 				},
 				{
-					label: 'SMS with TextMagic',
+					label: 'SMS with Textmagic',
 					href: '/docs/products/messaging/textmagic'
 				},
 				{
@@ -102,7 +102,7 @@
 			items: [
 				{
 					label: 'API reference',
-					href: '/docs/references/1.5.x/client-web/messaging'
+					href: '/docs/references/cloud/client-web/messaging'
 				},
 			]
 		},
